@@ -5,7 +5,9 @@
   "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "start": "ts-node -r tsconfig-paths/register src/index.ts",
+    "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/index.ts"
   },
   "author": "Johan Restrepo",
   "license": "ISC",
@@ -18,6 +20,7 @@
     "@typescript-eslint/parser": "^6.13.1",
     "eslint": "^8.55.0",
     "eslint-config-prettier": "9.0.0",
-    "prettier": "3.1.0"
+    "prettier": "3.1.0",
+    "tsconfig-paths": "^4.2.0"
   }
 }

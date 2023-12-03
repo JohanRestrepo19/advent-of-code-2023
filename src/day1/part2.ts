@@ -1,5 +1,5 @@
-import { invertString } from '../lib/utils'
-import { readCalibrationDocument } from './part1'
+import { invertString } from '@/lib/utils'
+import { readCalibrationDocument } from '@/lib/parse'
 
 enum DigitsEnum {
   one = 1,

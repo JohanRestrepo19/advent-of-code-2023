@@ -1,3 +1,4 @@
-import { main } from "./part2";
+import { main as part1 } from './part1'
+import { main as part2 } from './part2'
 
-main('./calibration-document.txt').then(console.log)
+export { part1, part2 }
