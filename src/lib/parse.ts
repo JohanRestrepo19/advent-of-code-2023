@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises'
 import { join, dirname } from 'node:path'
 import { argv } from 'node:process'
 
-export const readCalibrationDocument = async (
+export const parseFileInput = async (
   inputFileName: string
 ): Promise<string[]> => {
   const currentDir = dirname(argv[1])

@@ -1,4 +1,4 @@
-import { readCalibrationDocument } from "@/lib/parse"
+import { parseFileInput } from "@/lib/parse"
 
 const recoverDigitsFromCalibrationLine = (calibrationLine: string): number => {
   let digits = ''
@@ -18,8 +18,8 @@ const recoverDigitsFromCalibrationLine = (calibrationLine: string): number => {
 
   return Number(digits)
 }
-export const main = async (inputFileName: string) => {
-  const calibrationLines = await readCalibrationDocument(inputFileName)
+export const partOne = async (inputFileName: string) => {
+  const calibrationLines = await parseFileInput(inputFileName)
   const digits = calibrationLines.map(recoverDigitsFromCalibrationLine)
   return digits.reduce((prev, curr) => prev + curr, 0)
 }
