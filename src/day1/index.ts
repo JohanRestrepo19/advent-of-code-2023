@@ -1,4 +1,4 @@
-import { parseFileInput } from '@/lib/parse'
+import { parseFileInputToArr } from '@/lib/parse'
 import { invertString } from '@/lib/utils'
 
 enum DigitsEnum {
@@ -60,13 +60,13 @@ const parseCalibrationValue = (calibrationValues: string[]): number => {
 }
 
 export const partOne = async (inputFileName: string) => {
-  const calibrationLines = await parseFileInput(inputFileName)
+  const calibrationLines = await parseFileInputToArr(inputFileName)
   const digits = calibrationLines.map(recoverDigitsFromCalibrationLine)
   return digits.reduce((prev, curr) => prev + curr, 0)
 }
 
 export const partTwo = async (inputFileName: string) => {
-  const calibrationLines = await parseFileInput(inputFileName)
+  const calibrationLines = await parseFileInputToArr(inputFileName)
   return calibrationLines
     .map(findDigits)
     .map(parseCalibrationValue)
