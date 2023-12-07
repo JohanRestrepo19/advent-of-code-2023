@@ -1,23 +1,21 @@
 import { parseFileInput } from '@/lib/parse'
 
-type PartNumberCandidate = {
+type PartNumber = {
   index: number
-  partNumber: string
+  value: string
 }
 
-const findPartNumberCandidates = (
-  engineSchematic: string
-): PartNumberCandidate[] => {
-  const neighbors = engineSchematic.matchAll(/\d+/g)
-  const result: PartNumberCandidate[] = []
+const findPartNumberCandidates = (engineSchematic: string): PartNumber[] => {
+  const candidates = engineSchematic.matchAll(/\d+/g)
+  const result: PartNumber[] = []
 
-  for (const n of neighbors)
-    result.push({ index: n.index as number, partNumber: n[0] })
+  for (const candidate of candidates)
+    result.push({ index: candidate.index as number, value: candidate[0] })
 
   return result
 }
 
-const numberNeighbors = (
+const getNumberNeighbors = (
   idx: number,
   engineSchematic: string
 ): (string | undefined)[] => {
@@ -36,13 +34,13 @@ const numberNeighbors = (
 }
 
 const isValidPartNumber = (
-  partNumber: PartNumberCandidate,
+  partNumber: PartNumber,
   engineSchematic: string
 ): boolean => {
-  const { index: partIdx, partNumber: partNumberCandidate } = partNumber
+  const { index: partIdx, value: partNumberCandidate } = partNumber
 
   for (let i = partIdx; i < partIdx + partNumberCandidate.length; i++) {
-    const neighbors = numberNeighbors(i, engineSchematic)
+    const neighbors = getNumberNeighbors(i, engineSchematic)
 
     for (const neighbor of neighbors) {
       if (neighbor) {
@@ -55,15 +53,113 @@ const isValidPartNumber = (
   return false
 }
 
-export const partOne = async (inputFileName: string) => {
+export const partOne = async (inputFileName: string): Promise<number> => {
   const engineSchematic = await parseFileInput(inputFileName)
   const partNumberCandidates = findPartNumberCandidates(engineSchematic)
 
   return partNumberCandidates
-    .filter(partNumber => {
-      return isValidPartNumber(partNumber, engineSchematic)
+    .filter(partNumber => isValidPartNumber(partNumber, engineSchematic))
+    .reduce((prev, curr) => prev + Number(curr.value), 0)
+}
+
+//--------------------------------------------------------------------
+
+type PartNumberWithIndexes = {
+  value: string
+  indexes: number[]
+}
+
+const getGearNeighborIndexes = (
+  idx: number,
+  engineSchematic: string
+): number[] => {
+  const schematicCols = engineSchematic.indexOf('\n') + 1
+
+  return [
+    idx - schematicCols - 1,
+    idx - schematicCols - 0,
+    idx - schematicCols + 1,
+    idx + 0 + 1,
+    idx + schematicCols + 1,
+    idx + schematicCols + 0,
+    idx + schematicCols - 1,
+    idx + 0 - 1,
+  ]
+}
+
+const isIndexIncludedInSurroundings = (
+  index: number,
+  surroundingIndexes: number[]
+): boolean => {
+  return surroundingIndexes.includes(index)
+}
+
+const findGearNeighborParts = (
+  gearIndex: number,
+  partNumbers: PartNumberWithIndexes[],
+  engineSchematic: string
+): PartNumberWithIndexes[] => {
+  const partNumberNeigbors: PartNumberWithIndexes[] = []
+  const surroundingIndexes = getGearNeighborIndexes(gearIndex, engineSchematic)
+
+  for (const pn of partNumbers) {
+    for (const index of pn.indexes) {
+      if (isIndexIncludedInSurroundings(index, surroundingIndexes)) {
+        partNumberNeigbors.push(pn)
+        break
+      }
+    }
+  }
+
+  return partNumberNeigbors
+}
+
+const findGearCandidatesIndexes = (engineSchematic: string): number[] => {
+  const candidates = engineSchematic.matchAll(/\*/g)
+  const indexes: number[] = []
+  for (const candidate of candidates) indexes.push(candidate.index as number)
+
+  return indexes
+}
+
+const getGearsRatios = (
+  gearCandidatesIndexes: number[],
+  partNumbers: PartNumberWithIndexes[],
+  engineSchematic: string
+): number[] => {
+  const gearNeighbors: PartNumberWithIndexes[][] = []
+
+  for (const gearIdx of gearCandidatesIndexes) {
+    gearNeighbors.push(
+      findGearNeighborParts(gearIdx, partNumbers, engineSchematic)
+    )
+  }
+
+  const validGearNeighborsSets = gearNeighbors.filter(
+    neighborSet => neighborSet.length === 2
+  )
+
+  return validGearNeighborsSets.map(
+    neighborSet => Number(neighborSet[0].value) * Number(neighborSet[1].value)
+  )
+}
+
+export const partTwo = async (inputFileName: string): Promise<number> => {
+  const engineSchematic = await parseFileInput(inputFileName)
+
+  const partNumbersWithIndexes = findPartNumberCandidates(engineSchematic)
+    .filter(pn => isValidPartNumber(pn, engineSchematic))
+    .map<PartNumberWithIndexes>(pn => {
+      const indexes: number[] = []
+      for (let i = 0; i < pn.value.length; i++) indexes.push(pn.index + i)
+      return { value: pn.value, indexes }
     })
-    .reduce((prev, curr) => {
-      return prev + Number(curr.partNumber)
-    }, 0)
+
+  const gearCandidatesIndexes = findGearCandidatesIndexes(engineSchematic)
+
+  return getGearsRatios(
+    gearCandidatesIndexes,
+    partNumbersWithIndexes,
+    engineSchematic
+  ).reduce((prev, curr) => prev + curr)
 }

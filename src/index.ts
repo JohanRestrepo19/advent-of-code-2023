@@ -1,6 +1,6 @@
 import { partOne as dayOnePartOne, partTwo as dayOnePartTwo } from '@/day1/'
 import { partOne as dayTwoPartOne, partTwo as dayTwoPartTwo } from '@/day2'
-import { partOne as dayThreePartOne } from '@/day3'
+import { partOne as dayThreePartOne, partTwo as dayThreePartTwo } from '@/day3'
 
 const dayOne = async () => {
   console.log('Day 1 results: ')
@@ -19,6 +19,7 @@ const dayTwo = async () => {
 const dayThree = async () => {
   console.log('Day 3 results: ')
   console.log(await dayThreePartOne('./day3/input/engine-schematic.txt'))
+  console.log(await dayThreePartTwo('./day3/input/engine-schematic.txt'))
   console.log()
 }
 
