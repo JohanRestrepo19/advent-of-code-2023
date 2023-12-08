@@ -1,7 +1,7 @@
 import { partOne as dayOnePartOne, partTwo as dayOnePartTwo } from '@/day1/'
 import { partOne as dayTwoPartOne, partTwo as dayTwoPartTwo } from '@/day2'
 import { partOne as dayThreePartOne, partTwo as dayThreePartTwo } from '@/day3'
-import { partOne as dayFourPartOne } from '@/day4'
+import { partOne as dayFourPartOne, partTwo as dayFourPartTwo } from '@/day4'
 
 const dayOne = async () => {
   console.log('Day 1 results: ')
@@ -27,6 +27,7 @@ const dayThree = async () => {
 const dayFour = async () => {
   console.log('Day 4 results: ')
   console.log(await dayFourPartOne('./day4/input/pile-of-scratch-cards.txt'))
+  console.log(await dayFourPartTwo('./day4/input/pile-of-scratch-cards.txt'))
   console.log()
 }
 
