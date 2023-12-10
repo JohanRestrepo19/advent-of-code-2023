@@ -21,7 +21,7 @@ const parseRacesInfo = (racesInfo: string[]): Race[] => {
   return result
 }
 
-const findNumberOfWayToBeatRace = (race: Race): number => {
+const findNumberOfWaysToBeatRace = (race: Race): number => {
   const { time, distance: recordDistance } = race
   let waysToBeatAmount = 0
 
@@ -37,16 +37,22 @@ const findNumberOfWayToBeatRace = (race: Race): number => {
 export const partOne = async (inputFileName: string): Promise<number> => {
   const racesInfo = await parseFileInputToArr(inputFileName)
   const races = parseRacesInfo(racesInfo)
-  const waysToBeatRaces = races.map(race => findNumberOfWayToBeatRace(race))
+  const waysToBeatRaces = races.map(race => findNumberOfWaysToBeatRace(race))
   return waysToBeatRaces.reduce((prev, curr) => prev * curr, 1)
 }
 
-
 //--------------------------------------------------------------------
 
-export const partTwo = async (inputFileName: string): Promise<number> => {
+const parseSingleRaceInfo = (raceInfo: string[]): Race => {
+  const [time, distance] = raceInfo.map<number>(raceString => {
+    return Number(raceString.split(':')[1].match(/\d+/g)?.join(''))
+  })
 
-  return -1
+  return {time, distance}
 }
 
-
+export const partTwo = async (inputFileName: string): Promise<number> => {
+  const raceInfo = await parseFileInputToArr(inputFileName)
+  const race = parseSingleRaceInfo(raceInfo)
+  return findNumberOfWaysToBeatRace(race)
+}

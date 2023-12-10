@@ -33,7 +33,6 @@ const dayFour = async () => {
   console.log()
 }
 
-
 //NOTE: Be carefull with part two of day five, it takes too long to resolve!
 const dayFive = async () => {
   console.log('Day 5 results: ')
@@ -45,15 +44,15 @@ const dayFive = async () => {
 const daySix = async () => {
   console.log('Day 6 results: ')
   console.log(await daySixPartOne('./day6/input/sheet-of-paper.txt'))
-  console.log(await daySixPartTwo('./day6/input/sheet-of-paper-test.txt'))
+  console.log(await daySixPartTwo('./day6/input/sheet-of-paper.txt'))
   console.log()
 }
 
 const main = async () => {
-  // await dayOne()
-  // await dayTwo()
-  // await dayThree()
-  // await dayFour()
+  await dayOne()
+  await dayTwo()
+  await dayThree()
+  await dayFour()
   // await dayFive()
   await daySix()
 }
