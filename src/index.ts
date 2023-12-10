@@ -2,6 +2,7 @@ import { partOne as dayOnePartOne, partTwo as dayOnePartTwo } from '@/day1/'
 import { partOne as dayTwoPartOne, partTwo as dayTwoPartTwo } from '@/day2'
 import { partOne as dayThreePartOne, partTwo as dayThreePartTwo } from '@/day3'
 import { partOne as dayFourPartOne, partTwo as dayFourPartTwo } from '@/day4'
+import { partOne as dayFivePartOne, partTwo as dayFivePartTwo } from '@/day5'
 
 const dayOne = async () => {
   console.log('Day 1 results: ')
@@ -31,11 +32,21 @@ const dayFour = async () => {
   console.log()
 }
 
+
+//NOTE: Be carefull with part two of day five, it takes too long to resolve!
+const dayFive = async () => {
+  console.log('Day 5 results: ')
+  console.log(await dayFivePartOne('./day5/input/almanac.txt'))
+  console.log(await dayFivePartTwo('./day5/input/almanac.txt'))
+  console.log()
+}
+
 const main = async () => {
   await dayOne()
   await dayTwo()
   await dayThree()
   await dayFour()
+  // await dayFive()
 }
 
 main()

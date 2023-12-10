@@ -49,6 +49,7 @@ export const partOne = async (inputFileName: string): Promise<number> => {
 }
 
 //--------------------------------------------------------------------
+
 type CardsMatchings = {
   [index: string]: number
 }
