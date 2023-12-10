@@ -3,6 +3,7 @@ import { partOne as dayTwoPartOne, partTwo as dayTwoPartTwo } from '@/day2'
 import { partOne as dayThreePartOne, partTwo as dayThreePartTwo } from '@/day3'
 import { partOne as dayFourPartOne, partTwo as dayFourPartTwo } from '@/day4'
 import { partOne as dayFivePartOne, partTwo as dayFivePartTwo } from '@/day5'
+import { partOne as daySixPartOne, partTwo as daySixPartTwo } from '@/day6'
 
 const dayOne = async () => {
   console.log('Day 1 results: ')
@@ -41,12 +42,20 @@ const dayFive = async () => {
   console.log()
 }
 
+const daySix = async () => {
+  console.log('Day 6 results: ')
+  console.log(await daySixPartOne('./day6/input/sheet-of-paper.txt'))
+  console.log(await daySixPartTwo('./day6/input/sheet-of-paper-test.txt'))
+  console.log()
+}
+
 const main = async () => {
-  await dayOne()
-  await dayTwo()
-  await dayThree()
-  await dayFour()
+  // await dayOne()
+  // await dayTwo()
+  // await dayThree()
+  // await dayFour()
   // await dayFive()
+  await daySix()
 }
 
 main()
