@@ -5,6 +5,7 @@ import { partOne as dayFourPartOne, partTwo as dayFourPartTwo } from '@/day4'
 import { partOne as dayFivePartOne, partTwo as dayFivePartTwo } from '@/day5'
 import { partOne as daySixPartOne, partTwo as daySixPartTwo } from '@/day6'
 import { partOne as daySevenPartOne, partTwo as daySevenPartTwo } from '@/day7'
+import { partOne as dayEightPartOne } from '@/day8'
 
 const dayOne = async () => {
   console.log('Day 1 results: ')
@@ -56,7 +57,11 @@ const daySeven = async () => {
   console.log()
 }
 
-251481660
+const dayEight = async () => {
+  console.log('Day 8 results: ')
+  console.log(await dayEightPartOne('./day8/input/map.txt'))
+  console.log()
+}
 
 const main = async () => {
   // await dayFive()
@@ -66,6 +71,7 @@ const main = async () => {
   await dayFour()
   await daySix()
   await daySeven()
+  await dayEight()
 }
 
 main()
