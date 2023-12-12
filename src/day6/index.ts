@@ -1,4 +1,4 @@
-import { parseFileInputToArr } from '@/lib/parse'
+import { parseInputFileToArr } from '@/lib/parse'
 
 type Race = {
   time: number
@@ -35,7 +35,7 @@ const findNumberOfWaysToBeatRace = (race: Race): number => {
 }
 
 export const partOne = async (inputFileName: string): Promise<number> => {
-  const racesInfo = await parseFileInputToArr(inputFileName)
+  const racesInfo = await parseInputFileToArr(inputFileName)
   const races = parseRacesInfo(racesInfo)
   const waysToBeatRaces = races.map(race => findNumberOfWaysToBeatRace(race))
   return waysToBeatRaces.reduce((prev, curr) => prev * curr, 1)
@@ -52,7 +52,7 @@ const parseSingleRaceInfo = (raceInfo: string[]): Race => {
 }
 
 export const partTwo = async (inputFileName: string): Promise<number> => {
-  const raceInfo = await parseFileInputToArr(inputFileName)
+  const raceInfo = await parseInputFileToArr(inputFileName)
   const race = parseSingleRaceInfo(raceInfo)
   return findNumberOfWaysToBeatRace(race)
 }

@@ -2,7 +2,9 @@ import { readFile } from 'node:fs/promises'
 import { join, dirname } from 'node:path'
 import { argv } from 'node:process'
 
-export const parseFileInput = async (inputFileName: string): Promise<string> => {
+export const parseInputFile = async (
+  inputFileName: string
+): Promise<string> => {
   const currentDir = dirname(argv[1])
   const path = join(currentDir, inputFileName)
 
@@ -13,10 +15,9 @@ export const parseFileInput = async (inputFileName: string): Promise<string> => 
   }
 }
 
-export const parseFileInputToArr = async (
+export const parseInputFileToArr = async (
   inputFileName: string
 ): Promise<string[]> => {
-  const inputString = await parseFileInput(inputFileName)
+  const inputString = await parseInputFile(inputFileName)
   return inputString.slice(0, -1).split('\n')
 }
-

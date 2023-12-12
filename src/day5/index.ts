@@ -1,4 +1,4 @@
-import { parseFileInput } from '@/lib/parse'
+import { parseInputFile } from '@/lib/parse'
 
 type Ranges = {
   source: [number, number]
@@ -88,7 +88,7 @@ function findLowestLocationNumber(almanac: Almanac): number {
 }
 
 export async function partOne(inputFileName: string): Promise<number> {
-  const almanacString = await parseFileInput(inputFileName)
+  const almanacString = await parseInputFile(inputFileName)
   const almanac = parseAlmanacString(almanacString)
   return findLowestLocationNumber(almanac)
 }
@@ -124,7 +124,7 @@ function findLowestLocationNumberInRage(
 }
 
 export async function partTwo(inputFileName: string): Promise<number> {
-  const almanacString = await parseFileInput(inputFileName)
+  const almanacString = await parseInputFile(inputFileName)
   const almanac = parseAlmanacString(almanacString)
   const seedsRanges = findSeedsRanges(almanac.seeds)
   const locationNumbers = seedsRanges.map(seedRange =>

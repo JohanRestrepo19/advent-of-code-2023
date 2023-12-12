@@ -4,6 +4,7 @@ import { partOne as dayThreePartOne, partTwo as dayThreePartTwo } from '@/day3'
 import { partOne as dayFourPartOne, partTwo as dayFourPartTwo } from '@/day4'
 import { partOne as dayFivePartOne, partTwo as dayFivePartTwo } from '@/day5'
 import { partOne as daySixPartOne, partTwo as daySixPartTwo } from '@/day6'
+import { partOne as daySevenPartOne, partTwo as daySevenPartTwo } from '@/day7'
 
 const dayOne = async () => {
   console.log('Day 1 results: ')
@@ -48,13 +49,23 @@ const daySix = async () => {
   console.log()
 }
 
+const daySeven = async () => {
+  console.log('Day 7 results: ')
+  console.log(await daySevenPartOne('./day7/input/camel-cards.txt'))
+  console.log(await daySevenPartTwo('./day7/input/camel-cards.txt'))
+  console.log()
+}
+
+251481660
+
 const main = async () => {
+  // await dayFive()
   await dayOne()
   await dayTwo()
   await dayThree()
   await dayFour()
-  // await dayFive()
   await daySix()
+  await daySeven()
 }
 
 main()

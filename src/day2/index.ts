@@ -1,4 +1,4 @@
-import { parseFileInputToArr } from '@/lib/parse'
+import { parseInputFileToArr } from '@/lib/parse'
 
 type CubeSubset = {
   red: number
@@ -83,14 +83,14 @@ const findSubsetsPower = (subsets: CubeSubset[]) => {
 }
 
 export const partOne = async (inputFileName: string) => {
-  const fileContents = await parseFileInputToArr(inputFileName)
+  const fileContents = await parseInputFileToArr(inputFileName)
   const gameLog = parseInputToGames(fileContents)
   const validGames = filterValidGames(gameLog, { red: 12, green: 13, blue: 14 })
   return sumGamesIds(validGames)
 }
 
 export const partTwo = async (inputFileName: string) => {
-  const fileContents = await parseFileInputToArr(inputFileName)
+  const fileContents = await parseInputFileToArr(inputFileName)
   const gameLog = parseInputToGames(fileContents)
   const fewestNumberOfCubes = findFewestNumberOfCubes(gameLog)
   const subsetsPower = findSubsetsPower(fewestNumberOfCubes)

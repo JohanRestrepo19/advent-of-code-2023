@@ -1,4 +1,4 @@
-import { parseFileInput } from '@/lib/parse'
+import { parseInputFile } from '@/lib/parse'
 
 type PartNumber = {
   index: number
@@ -54,7 +54,7 @@ const isValidPartNumber = (
 }
 
 export const partOne = async (inputFileName: string): Promise<number> => {
-  const engineSchematic = await parseFileInput(inputFileName)
+  const engineSchematic = await parseInputFile(inputFileName)
   const partNumberCandidates = findPartNumberCandidates(engineSchematic)
 
   return partNumberCandidates
@@ -145,7 +145,7 @@ const getGearsRatios = (
 }
 
 export const partTwo = async (inputFileName: string): Promise<number> => {
-  const engineSchematic = await parseFileInput(inputFileName)
+  const engineSchematic = await parseInputFile(inputFileName)
 
   const partNumbersWithIndexes = findPartNumberCandidates(engineSchematic)
     .filter(pn => isValidPartNumber(pn, engineSchematic))
