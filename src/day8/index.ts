@@ -1,4 +1,5 @@
 import { parseInputFileToArr } from '@/lib/parse'
+import { LCM } from '@/lib/utils'
 
 type Documents = {
   instructions: string[]
@@ -25,33 +26,77 @@ const traverseNetwork = (
   documents: Documents,
   initialNode = 'AAA',
   finalNode = 'ZZZ'
-): number => { 
-
-  const {instructions, network} = documents
+): number => {
+  const { instructions, network } = documents
 
   let currentNode = initialNode
   let currentNodeOptions = network.get(currentNode) as [string, string]
 
   let steps = 0
 
-  while (true){
-    if(currentNode === finalNode) return steps
+  while (true) {
+    if (currentNode === finalNode) return steps
 
     const currentInstruction = instructions[steps % instructions.length]
 
-    if(currentInstruction === 'L') currentNode = currentNodeOptions[0]
-    if(currentInstruction === 'R') currentNode = currentNodeOptions[1]
+    if (currentInstruction === 'L') currentNode = currentNodeOptions[0]
+    if (currentInstruction === 'R') currentNode = currentNodeOptions[1]
 
     currentNodeOptions = network.get(currentNode) as [string, string]
 
     steps++
   }
-
-
 }
 
 export const partOne = async (inputFileName: string): Promise<number> => {
   const documentsInfo = await parseInputFileToArr(inputFileName)
   const documents = parseDocuments(documentsInfo)
   return traverseNetwork(documents)
+}
+
+//--------------------------------------------------------------------
+
+const getStartingNodes = (
+  network: Documents['network'],
+  startingLetter = 'A'
+): string[] => {
+  const keys = [...network.keys()]
+
+  return keys.filter(key => key[key.length - 1] === startingLetter)
+}
+
+const traverseGhostNetwork = (
+  documents: Documents,
+  initialNode: string
+): number => {
+  const { instructions, network } = documents
+
+  let currentNode = initialNode
+  let currentNodeOptions = network.get(currentNode) as [string, string]
+
+  let steps = 0
+
+  while (!(currentNode[currentNode.length - 1] === 'Z')) {
+    const currentInstruction = instructions[steps % instructions.length]
+
+    if (currentInstruction === 'L') currentNode = currentNodeOptions[0]
+    if (currentInstruction === 'R') currentNode = currentNodeOptions[1]
+
+    currentNodeOptions = network.get(currentNode) as [string, string]
+
+    steps++
+  }
+  return steps
+}
+
+export const partTwo = async (inputFileName: string): Promise<number> => {
+  const documentsInfo = await parseInputFileToArr(inputFileName)
+  const documents = parseDocuments(documentsInfo)
+  const startingNodes = getStartingNodes(documents.network)
+
+  const ghostsResults = startingNodes.map(node =>
+    traverseGhostNetwork(documents, node)
+  )
+
+  return LCM(ghostsResults)
 }
