@@ -2,10 +2,11 @@ import { partOne as dayOnePartOne, partTwo as dayOnePartTwo } from '@/day1/'
 import { partOne as dayTwoPartOne, partTwo as dayTwoPartTwo } from '@/day2'
 import { partOne as dayThreePartOne, partTwo as dayThreePartTwo } from '@/day3'
 import { partOne as dayFourPartOne, partTwo as dayFourPartTwo } from '@/day4'
-import { partOne as dayFivePartOne, partTwo as dayFivePartTwo } from '@/day5'
+// import { partOne as dayFivePartOne, partTwo as dayFivePartTwo } from '@/day5'
 import { partOne as daySixPartOne, partTwo as daySixPartTwo } from '@/day6'
 import { partOne as daySevenPartOne, partTwo as daySevenPartTwo } from '@/day7'
 import { partOne as dayEightPartOne, partTwo as dayEightPartTwo } from '@/day8'
+import { partOne as dayNinePartOne } from '@/day9'
 
 const dayOne = async () => {
   console.log('Day 1 results: ')
@@ -38,8 +39,8 @@ const dayFour = async () => {
 //NOTE: Be carefull with part two of day five, it takes too long to resolve!
 const dayFive = async () => {
   console.log('Day 5 results: ')
-  console.log(await dayFivePartOne('./day5/input/almanac.txt'))
-  console.log(await dayFivePartTwo('./day5/input/almanac.txt'))
+  // console.log(await dayFivePartOne('./day5/input/almanac.txt'))
+  // console.log(await dayFivePartTwo('./day5/input/almanac.txt'))
   console.log()
 }
 
@@ -64,15 +65,22 @@ const dayEight = async () => {
   console.log()
 }
 
+const dayNine = async () => {
+  console.log('Day 9 results: ')
+  console.log(await dayNinePartOne('./day9/input/report.txt'))
+  console.log()
+}
+
 const main = async () => {
-  // await dayFive()
   await dayOne()
   await dayTwo()
   await dayThree()
   await dayFour()
+  await dayFive()
   await daySix()
   await daySeven()
   await dayEight()
+  await dayNine()
 }
 
 main()
