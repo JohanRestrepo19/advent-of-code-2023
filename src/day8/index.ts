@@ -1,5 +1,6 @@
 import { parseInputFileToArr } from '@/lib/parse'
 import { LCM } from '@/lib/utils'
+import { type DayProblem } from '@/lib/types'
 
 type Documents = {
   instructions: string[]
@@ -48,7 +49,7 @@ const traverseNetwork = (
   }
 }
 
-export const partOne = async (inputFileName: string): Promise<number> => {
+export const partOne: DayProblem = async inputFileName => {
   const documentsInfo = await parseInputFileToArr(inputFileName)
   const documents = parseDocuments(documentsInfo)
   return traverseNetwork(documents)
@@ -89,7 +90,7 @@ const traverseGhostNetwork = (
   return steps
 }
 
-export const partTwo = async (inputFileName: string): Promise<number> => {
+export const partTwo: DayProblem = async inputFileName => {
   const documentsInfo = await parseInputFileToArr(inputFileName)
   const documents = parseDocuments(documentsInfo)
   const startingNodes = getStartingNodes(documents.network)

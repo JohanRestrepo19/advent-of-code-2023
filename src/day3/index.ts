@@ -1,4 +1,5 @@
 import { parseInputFile } from '@/lib/parse'
+import { type DayProblem } from '@/lib/types'
 
 type PartNumber = {
   index: number
@@ -53,7 +54,7 @@ const isValidPartNumber = (
   return false
 }
 
-export const partOne = async (inputFileName: string): Promise<number> => {
+export const partOne: DayProblem = async inputFileName => {
   const engineSchematic = await parseInputFile(inputFileName)
   const partNumberCandidates = findPartNumberCandidates(engineSchematic)
 
@@ -144,7 +145,7 @@ const getGearsRatios = (
   )
 }
 
-export const partTwo = async (inputFileName: string): Promise<number> => {
+export const partTwo: DayProblem = async inputFileName => {
   const engineSchematic = await parseInputFile(inputFileName)
 
   const partNumbersWithIndexes = findPartNumberCandidates(engineSchematic)

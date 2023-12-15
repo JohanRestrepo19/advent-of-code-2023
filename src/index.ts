@@ -66,12 +66,12 @@ const dayEight = async () => {
 
 const main = async () => {
   // await dayFive()
-  // await dayOne()
-  // await dayTwo()
-  // await dayThree()
-  // await dayFour()
-  // await daySix()
-  // await daySeven()
+  await dayOne()
+  await dayTwo()
+  await dayThree()
+  await dayFour()
+  await daySix()
+  await daySeven()
   await dayEight()
 }
 

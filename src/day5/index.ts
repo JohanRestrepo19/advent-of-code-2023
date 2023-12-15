@@ -1,4 +1,5 @@
 import { parseInputFile } from '@/lib/parse'
+import { type DayProblem } from '@/lib/types'
 
 type Ranges = {
   source: [number, number]
@@ -87,7 +88,7 @@ function findLowestLocationNumber(almanac: Almanac): number {
   }, Infinity)
 }
 
-export async function partOne(inputFileName: string): Promise<number> {
+export const partOne: DayProblem = async inputFileName => {
   const almanacString = await parseInputFile(inputFileName)
   const almanac = parseAlmanacString(almanacString)
   return findLowestLocationNumber(almanac)
@@ -123,12 +124,15 @@ function findLowestLocationNumberInRage(
   return lowestLocationNumber
 }
 
-export async function partTwo(inputFileName: string): Promise<number> {
+export const partTwo: DayProblem = async inputFileName => {
   const almanacString = await parseInputFile(inputFileName)
   const almanac = parseAlmanacString(almanacString)
   const seedsRanges = findSeedsRanges(almanac.seeds)
   const locationNumbers = seedsRanges.map(seedRange =>
     findLowestLocationNumberInRage(seedRange, almanac.maps)
   )
-  return locationNumbers.reduce((prev, curr) => (curr < prev) ? curr : prev, Infinity)
+  return locationNumbers.reduce(
+    (prev, curr) => (curr < prev ? curr : prev),
+    Infinity
+  )
 }

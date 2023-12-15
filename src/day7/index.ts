@@ -1,4 +1,5 @@
 import { parseInputFileToArr } from '@/lib/parse'
+import { type DayProblem } from '@/lib/types'
 
 enum HandType {
   'fiveOfAKind' = 7,
@@ -97,7 +98,7 @@ const determineTotalWinnings = (rankedHands: Hand[]): number => {
     .reduce((prev, curr) => prev + curr)
 }
 
-export const partOne = async (inputFileName: string): Promise<number> => {
+export const partOne: DayProblem = async inputFileName => {
   // prettier-ignore
   const cardsStrength: Card[] = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
   const fileContents = await parseInputFileToArr(inputFileName)
@@ -147,7 +148,7 @@ const getCardsOccurrencesPartTwo: GetCardsOccurrences = cards => {
   return cardsOccurrences
 }
 
-export const partTwo = async (inputFileName: string): Promise<number> => {
+export const partTwo: DayProblem = async inputFileName => {
   // prettier-ignore
   const cardsStrength: Card[] = ['J', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'Q', 'K', 'A']
   const fileContents = await parseInputFileToArr(inputFileName)
@@ -162,5 +163,4 @@ export const partTwo = async (inputFileName: string): Promise<number> => {
   )
 
   return determineTotalWinnings(rankedHands)
-
 }

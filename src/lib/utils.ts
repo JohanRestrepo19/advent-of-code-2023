@@ -10,8 +10,6 @@ export const LCM = (numbers: number[]): number => {
   let divisor = 2
   const factors: number[] = []
 
-  console.log({ factors: numbers, results })
-
   while (!results.every(value => value === 1)) {
     if (results.some(value => value % divisor === 0)) {
       results = results.map<number>(value => {

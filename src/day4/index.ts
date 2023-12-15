@@ -1,4 +1,5 @@
 import { parseInputFileToArr } from '@/lib/parse'
+import { type DayProblem } from '@/lib/types'
 
 type Card = {
   winningNumbers: number[]
@@ -41,7 +42,7 @@ const findCardValue = (card: Card): number => {
   return matchingsAmount > 0 ? Math.pow(2, matchingsAmount - 1) : 0
 }
 
-export const partOne = async (inputFileName: string): Promise<number> => {
+export const partOne: DayProblem = async inputFileName => {
   const input = await parseInputFileToArr(inputFileName)
   const cards = parseInputIntoCards(input)
   const worthPoints = cards.map(card => findCardValue(card))
@@ -85,7 +86,7 @@ const processCards = (cardsMatchings: CardsMatchings): CardsOccurrences => {
   return occurrences
 }
 
-export const partTwo = async (inputFileName: string): Promise<number> => {
+export const partTwo: DayProblem = async inputFileName => {
   const input = await parseInputFileToArr(inputFileName)
   const cards = parseInputIntoCards(input)
   const cardsMatchings = findCardsMatchings(cards)
