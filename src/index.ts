@@ -6,7 +6,7 @@ import { partOne as dayFourPartOne, partTwo as dayFourPartTwo } from '@/day4'
 import { partOne as daySixPartOne, partTwo as daySixPartTwo } from '@/day6'
 import { partOne as daySevenPartOne, partTwo as daySevenPartTwo } from '@/day7'
 import { partOne as dayEightPartOne, partTwo as dayEightPartTwo } from '@/day8'
-import { partOne as dayNinePartOne } from '@/day9'
+import { partOne as dayNinePartOne, partTwo as dayNinePartTwo } from '@/day9'
 
 const dayOne = async () => {
   console.log('Day 1 results: ')
@@ -68,6 +68,7 @@ const dayEight = async () => {
 const dayNine = async () => {
   console.log('Day 9 results: ')
   console.log(await dayNinePartOne('./day9/input/report.txt'))
+  console.log(await dayNinePartTwo('./day9/input/report.txt'))
   console.log()
 }
 

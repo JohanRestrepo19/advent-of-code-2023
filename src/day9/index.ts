@@ -53,3 +53,30 @@ export const partOne: DayProblem = async inputFilename => {
     .map(predictNextHistoryValue)
     .reduce((prev, curr) => prev + curr)
 }
+
+//--------------------------------------------------------------------
+
+const extrapolateBackwards = (history: History): number => {
+  const historySequences = getAllHistorySequences(history)
+
+  for (
+    let sequenceIdx = historySequences.length - 2;
+    sequenceIdx >= 0;
+    sequenceIdx--
+  ) {
+    const currentSeq = historySequences[sequenceIdx]
+    const belowSeq = historySequences[sequenceIdx + 1]
+    const belowValue = belowSeq[0]
+
+    currentSeq.unshift(currentSeq[0] - belowValue)
+  }
+
+  return historySequences[0][0]
+}
+
+export const partTwo: DayProblem = async inputFileName => {
+  return (await parseInputFileToArr(inputFileName))
+    .map(parseHistory)
+    .map(extrapolateBackwards)
+    .reduce((prev, curr) => prev + curr)
+}
