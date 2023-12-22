@@ -27,7 +27,7 @@ export const LCM = (numbers: number[]): number => {
   return factors.reduce((prev, curr) => prev * curr, 1)
 }
 
-export const transponseMatrix = <T>(matrix: T[][]): T[][] => {
+export const transposeMatrix = <T>(matrix: T[][]): T[][] => {
   const result: T[][] = new Array(matrix[0].length)
 
   for (let i = 0; i < result.length; i++) {
@@ -44,8 +44,19 @@ export const transponseMatrix = <T>(matrix: T[][]): T[][] => {
 export const distanceBetweenPoints = (
   initialPoint: Point,
   finalPoint: Point
-): number =>
-  Math.sqrt(
+): number => {
+  return Math.sqrt(
     Math.pow(finalPoint.x - initialPoint.x, 2) +
-    Math.pow(finalPoint.y - initialPoint.y, 2)
+      Math.pow(finalPoint.y - initialPoint.y, 2)
   )
+}
+
+export const cartesianDistanceBetweenPoints = (
+  initialPoint: Point,
+  finalPoint: Point
+): number => {
+  return (
+    Math.abs(finalPoint.x - initialPoint.x) +
+    Math.abs(finalPoint.y - initialPoint.y)
+  )
+}

@@ -1,20 +1,16 @@
 import { parseInputFileToArr } from '@/lib/parse'
-import { type DayProblem, type Point as Position } from '@/lib/types'
-import { distanceBetweenPoints, transponseMatrix } from '@/lib/utils'
+import { type DayProblem, type Point } from '@/lib/types'
+import {
+  cartesianDistanceBetweenPoints,
+  transposeMatrix,
+} from '@/lib/utils'
 
 type Image = string[]
 
 type UniverseInfo = {
   image: Image
-  galaxiesPositions: Map<number, Position>
+  galaxiesPositions: Map<number, Point>
 }
-
-const DIRECTIONS = [
-  [0, -1],
-  [1, 0],
-  [0, 1],
-  [-1, 0],
-]
 
 const parseImage = (image: string[]): UniverseInfo => {
   let galaxyId = 1
@@ -53,13 +49,13 @@ const expandRows = (image: string[]): string[] => {
 }
 
 const expandCols = (image: string[]): string[] => {
-  const invertedImage: string[] = transponseMatrix(
+  const invertedImage: string[] = transposeMatrix(
     image.map(el => el.split(''))
   ).map(el => el.join(''))
 
   const expandedRows = expandRows(invertedImage)
 
-  return transponseMatrix(expandedRows.map(el => el.split(''))).map(el =>
+  return transposeMatrix(expandedRows.map(el => el.split(''))).map(el =>
     el.join('')
   )
 }
@@ -79,51 +75,20 @@ const getPairsFromNumber = (n: number): number[][] => {
   return pairs
 }
 
-const findPlanetsMinDistance = (
-  image: UniverseInfo['image'],
-  current: Position,
-  endPlanetPos: Position,
-  steps = 0
-): number => {
-  if (current.x === endPlanetPos.x && current.y === endPlanetPos.y) return steps
-
-  let currMinDistance = Infinity
-  let nextPos: Position = { x: 0, y: 0 }
-
-  for (const [x, y] of DIRECTIONS) {
-    const candidate = { x: current.x + x, y: current.y + y }
-    if (
-      candidate.x < 0 ||
-      candidate.x >= image[0].length ||
-      candidate.y < 0 ||
-      candidate.y >= image.length
-    )
-      continue
-
-    const distance = distanceBetweenPoints(candidate, endPlanetPos)
-
-    if (distance < currMinDistance) {
-      currMinDistance = distance
-      nextPos = candidate
-    }
-  }
-
-  return findPlanetsMinDistance(image, nextPos, endPlanetPos, steps + 1)
-}
-
 const findShortestPlanetsPath = (
-  universerInfo: UniverseInfo,
+  galaxiesPositions: UniverseInfo['galaxiesPositions'],
   pairs: number[][]
-): number[] => {
-  const { image, galaxiesPositions } = universerInfo
-  const distances: number[] = []
+): number => {
+  let distances = 0
 
   for (const [initialPlanet, endPlanet] of pairs) {
-    const initialPlanetPos = galaxiesPositions.get(initialPlanet) as Position
-    const endPlanetPos = galaxiesPositions.get(endPlanet) as Position
-    distances.push(
-      findPlanetsMinDistance(image, initialPlanetPos, endPlanetPos)
+    const initialPlanetPos = galaxiesPositions.get(initialPlanet) as Point
+    const endPlanetPos = galaxiesPositions.get(endPlanet) as Point
+    const distanceBetweenPoints = cartesianDistanceBetweenPoints(
+      initialPlanetPos,
+      endPlanetPos
     )
+    distances += distanceBetweenPoints
   }
 
   return distances
@@ -135,7 +100,104 @@ export const partOne: DayProblem = async inputFileName => {
   const universerInfo = parseImage(expandedImage)
   const planetPairs = getPairsFromNumber(universerInfo.galaxiesPositions.size)
 
-  return findShortestPlanetsPath(universerInfo, planetPairs).reduce(
-    (prev, curr) => prev + curr
+  return findShortestPlanetsPath(universerInfo.galaxiesPositions, planetPairs)
+}
+
+//--------------------------------------------------------------------
+
+type Spaces = {
+  rowsIdx: number[]
+  colsIdx: number[]
+}
+
+const identifySpacesPositions = (image: Image): Spaces => {
+  const rowsIdx: number[] = []
+  const colsIdx: number[] = []
+  const splittedImage = image.map(el => el.split(''))
+  const transposedImage = transposeMatrix(splittedImage)
+
+  for (let i = 0; i < splittedImage.length; i++)
+    if (splittedImage[i].every(el => el === '.')) rowsIdx.push(i)
+
+  for (let i = 0; i < transposedImage.length; i++)
+    if (transposedImage[i].every(el => el === '.')) colsIdx.push(i)
+
+  return {
+    rowsIdx,
+    colsIdx,
+  }
+}
+
+const identifyGalaxiesPositions = (
+  image: Image
+): UniverseInfo['galaxiesPositions'] => {
+  const galaxiesPositions: UniverseInfo['galaxiesPositions'] = new Map()
+  const splittedImage = image.map(el => el.split(''))
+  let galaxyId = 1
+
+  for (let y = 0; y < splittedImage.length; y++) {
+    for (let x = 0; x < splittedImage[0].length; x++) {
+      if (splittedImage[y][x] === '#') {
+        galaxiesPositions.set(galaxyId, { x, y })
+        galaxyId++
+      }
+    }
+  }
+
+  return galaxiesPositions
+}
+
+const expandUniverse = (
+  spacesIdx: Spaces,
+  galaxiesPositions: UniverseInfo['galaxiesPositions'],
+  expandFactor = 2
+): {
+  galaxiesPositions: UniverseInfo['galaxiesPositions']
+} => {
+  const updatedGalaxiesPositions = new Map(galaxiesPositions)
+
+  const { rowsIdx, colsIdx } = spacesIdx
+
+  // Actualizar por rows
+  for (const spaceRowId of rowsIdx) {
+    for (const [galaxyId, position] of galaxiesPositions) {
+      if (position.y > spaceRowId) {
+        const updatedGalaxyPos = updatedGalaxiesPositions.get(galaxyId) as Point
+        updatedGalaxiesPositions.set(galaxyId, {
+          ...updatedGalaxyPos,
+          y: updatedGalaxyPos.y + expandFactor - 1,
+        })
+      }
+    }
+  }
+
+  // Actualizar por cols
+  for (const spaceColId of colsIdx) {
+    for (const [galaxyId, position] of galaxiesPositions) {
+      if (position.x > spaceColId) {
+        const updatedGalaxyPos = updatedGalaxiesPositions.get(galaxyId) as Point
+        updatedGalaxiesPositions.set(galaxyId, {
+          ...updatedGalaxyPos,
+          x: updatedGalaxyPos.x + expandFactor - 1,
+        })
+      }
+    }
+  }
+
+  return { galaxiesPositions: updatedGalaxiesPositions }
+}
+
+export const partTwo: DayProblem = async inputFileName => {
+  const spaceImage = await parseInputFileToArr(inputFileName)
+  const spacesIdx = identifySpacesPositions(spaceImage)
+  const galaxiesPositions = identifyGalaxiesPositions(spaceImage)
+  const { galaxiesPositions: updatedGalaxiesPositions } = expandUniverse(
+    spacesIdx,
+    galaxiesPositions,
+    1000000
   )
+
+  const planetPairs = getPairsFromNumber(updatedGalaxiesPositions.size)
+
+  return findShortestPlanetsPath(updatedGalaxiesPositions, planetPairs)
 }
