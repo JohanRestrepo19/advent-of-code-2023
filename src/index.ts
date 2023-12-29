@@ -8,90 +8,101 @@ import { partOne as daySevenPartOne, partTwo as daySevenPartTwo } from '@/day7'
 import { partOne as dayEightPartOne, partTwo as dayEightPartTwo } from '@/day8'
 import { partOne as dayNinePartOne, partTwo as dayNinePartTwo } from '@/day9'
 // import { partOne as dayTenPartOne } from '@/day10'
-import { partOne as dayElevenPartOne, partTwo as dayElevenPartTwo } from '@/day11'
+import {
+    partOne as dayElevenPartOne,
+    partTwo as dayElevenPartTwo,
+} from '@/day11'
+import { partOne as dayTwelvePartOne } from '@/day12'
 
 const dayOne = async () => {
-  console.log('Day 1 results: ')
-  console.log(await dayOnePartOne('./day1/input/calibration-document.txt'))
-  console.log(await dayOnePartTwo('./day1/input/calibration-document.txt'))
-  console.log()
+    console.log('Day 1 results: ')
+    console.log(await dayOnePartOne('./day1/input/calibration-document.txt'))
+    console.log(await dayOnePartTwo('./day1/input/calibration-document.txt'))
+    console.log()
 }
 
 const dayTwo = async () => {
-  console.log('Day 2 results: ')
-  console.log(await dayTwoPartOne('./day2/input/puzzle-input.txt'))
-  console.log(await dayTwoPartTwo('./day2/input/puzzle-input.txt'))
-  console.log()
+    console.log('Day 2 results: ')
+    console.log(await dayTwoPartOne('./day2/input/puzzle-input.txt'))
+    console.log(await dayTwoPartTwo('./day2/input/puzzle-input.txt'))
+    console.log()
 }
 
 const dayThree = async () => {
-  console.log('Day 3 results: ')
-  console.log(await dayThreePartOne('./day3/input/engine-schematic.txt'))
-  console.log(await dayThreePartTwo('./day3/input/engine-schematic.txt'))
-  console.log()
+    console.log('Day 3 results: ')
+    console.log(await dayThreePartOne('./day3/input/engine-schematic.txt'))
+    console.log(await dayThreePartTwo('./day3/input/engine-schematic.txt'))
+    console.log()
 }
 
 const dayFour = async () => {
-  console.log('Day 4 results: ')
-  console.log(await dayFourPartOne('./day4/input/pile-of-scratch-cards.txt'))
-  console.log(await dayFourPartTwo('./day4/input/pile-of-scratch-cards.txt'))
-  console.log()
+    console.log('Day 4 results: ')
+    console.log(await dayFourPartOne('./day4/input/pile-of-scratch-cards.txt'))
+    console.log(await dayFourPartTwo('./day4/input/pile-of-scratch-cards.txt'))
+    console.log()
 }
 
 //NOTE: Be carefull with part two of day five, it takes too long to resolve!
 const dayFive = async () => {
-  console.log('Day 5 results: ')
-  // console.log(await dayFivePartOne('./day5/input/almanac.txt'))
-  // console.log(await dayFivePartTwo('./day5/input/almanac.txt'))
-  console.log()
+    console.log('Day 5 results: ')
+    // console.log(await dayFivePartOne('./day5/input/almanac.txt'))
+    // console.log(await dayFivePartTwo('./day5/input/almanac.txt'))
+    console.log()
 }
 
 const daySix = async () => {
-  console.log('Day 6 results: ')
-  console.log(await daySixPartOne('./day6/input/sheet-of-paper.txt'))
-  console.log(await daySixPartTwo('./day6/input/sheet-of-paper.txt'))
-  console.log()
+    console.log('Day 6 results: ')
+    console.log(await daySixPartOne('./day6/input/sheet-of-paper.txt'))
+    console.log(await daySixPartTwo('./day6/input/sheet-of-paper.txt'))
+    console.log()
 }
 
 const daySeven = async () => {
-  console.log('Day 7 results: ')
-  console.log(await daySevenPartOne('./day7/input/camel-cards.txt'))
-  console.log(await daySevenPartTwo('./day7/input/camel-cards.txt'))
-  console.log()
+    console.log('Day 7 results: ')
+    console.log(await daySevenPartOne('./day7/input/camel-cards.txt'))
+    console.log(await daySevenPartTwo('./day7/input/camel-cards.txt'))
+    console.log()
 }
 
 const dayEight = async () => {
-  console.log('Day 8 results: ')
-  console.log(await dayEightPartOne('./day8/input/map.txt'))
-  console.log(await dayEightPartTwo('./day8/input/map.txt'))
-  console.log()
+    console.log('Day 8 results: ')
+    console.log(await dayEightPartOne('./day8/input/map.txt'))
+    console.log(await dayEightPartTwo('./day8/input/map.txt'))
+    console.log()
 }
 
 const dayNine = async () => {
-  console.log('Day 9 results: ')
-  console.log(await dayNinePartOne('./day9/input/report.txt'))
-  console.log(await dayNinePartTwo('./day9/input/report.txt'))
-  console.log()
+    console.log('Day 9 results: ')
+    console.log(await dayNinePartOne('./day9/input/report.txt'))
+    console.log(await dayNinePartTwo('./day9/input/report.txt'))
+    console.log()
 }
 
 const dayEleven = async () => {
-  console.log('Day 11 results: ')
-  console.log(await dayElevenPartOne('./day11/input/image.txt'))
-  console.log(await dayElevenPartTwo('./day11/input/image.txt'))
-  console.log()
+    console.log('Day 11 results: ')
+    console.log(await dayElevenPartOne('./day11/input/image.txt'))
+    console.log(await dayElevenPartTwo('./day11/input/image.txt'))
+    console.log()
+}
+
+const dayTwelve = async () => {
+    console.log('Day 12 results: ')
+    console.log(await dayTwelvePartOne('./day11/input/image.txt'))
+    console.log()
 }
 
 const main = async () => {
-  await dayOne()
-  await dayTwo()
-  await dayThree()
-  await dayFour()
-  await dayFive()
-  await daySix()
-  await daySeven()
-  await dayEight()
-  await dayNine()
-  await dayEleven()
+    // await dayOne()
+    // await dayTwo()
+    // await dayThree()
+    // await dayFour()
+    // await dayFive()
+    // await daySix()
+    // await daySeven()
+    // await dayEight()
+    // await dayNine()
+    // await dayEleven()
+    await dayTwelve()
 }
 
 main()

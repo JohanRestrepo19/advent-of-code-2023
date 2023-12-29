@@ -1,22 +1,22 @@
 {
-  "ts-node": {
-    "files": true
-  },
-  "compilerOptions": {
-    "outDir": "dist",
-    "allowJs": false,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "resolveJsonModule": true,
-    "noImplicitReturns": true,
-    "esModuleInterop": true,
-    "target": "esnext",
-    "module": "commonjs",
-    "baseUrl": "src",
-    "paths": {
-      "@/*": ["*"]
-    }
-  },
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules"]
+    "ts-node": {
+        "files": true
+    },
+    "compilerOptions": {
+        "outDir": "dist",
+        "allowJs": false,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "resolveJsonModule": true,
+        "noImplicitReturns": true,
+        "esModuleInterop": true,
+        "target": "esnext",
+        "module": "commonjs",
+        "baseUrl": "src",
+        "paths": {
+            "@/*": ["*"]
+        }
+    },
+    "include": ["./src/**/*"],
+    "exclude": ["node_modules"]
 }
